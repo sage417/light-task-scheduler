@@ -28,7 +28,7 @@ public class BizLoggerFactory {
         String key = appContext.getConfig().getIdentity();
         BizLogger logger = BIZ_LOGGER_CONCURRENT_HASH_MAP.get(key);
         if (logger == null) {
-            synchronized (BIZ_LOGGER_CONCURRENT_HASH_MAP) {
+            synchronized (BizLoggerFactory.class) {
                 logger = BIZ_LOGGER_CONCURRENT_HASH_MAP.get(key);
                 if (logger != null) {
                     return logger;

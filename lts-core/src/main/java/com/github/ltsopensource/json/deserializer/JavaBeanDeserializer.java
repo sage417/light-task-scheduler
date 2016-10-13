@@ -85,7 +85,7 @@ public class JavaBeanDeserializer implements Deserializer {
         }
         setterInfo = new JavaBeanSetterInfo(clazz);
 
-        cache.putIfAbsent(clazz, setterInfo);
+        cache.put(clazz, setterInfo);
 
         return setterInfo;
     }

@@ -30,12 +30,15 @@ public class HttpCmdContext {
         Map<String, HttpCmdProc> cmdProcessorMap = NODE_PROCESSOR_MAP.get(identity);
         if (cmdProcessorMap == null) {
             lock.lock();
-            cmdProcessorMap = NODE_PROCESSOR_MAP.get(identity);
-            if (cmdProcessorMap == null) {
-                cmdProcessorMap = new ConcurrentHashMap<String, HttpCmdProc>();
-                NODE_PROCESSOR_MAP.put(identity, cmdProcessorMap);
+            try {
+                cmdProcessorMap = NODE_PROCESSOR_MAP.get(identity);
+                if (cmdProcessorMap == null) {
+                    cmdProcessorMap = new ConcurrentHashMap<String, HttpCmdProc>();
+                    NODE_PROCESSOR_MAP.put(identity, cmdProcessorMap);
+                }
+            } finally {
+                lock.unlock();
             }
-            lock.unlock();
         }
         cmdProcessorMap.put(command, proc);
     }

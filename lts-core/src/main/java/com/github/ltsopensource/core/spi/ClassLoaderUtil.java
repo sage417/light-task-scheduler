@@ -26,7 +26,7 @@ public final class ClassLoaderUtil {
             return constructor.newInstance();
         }
         Class<T> clazz = (Class<T>) loadClass(classLoader, className);
-        return (T) newInstance(clazz, classLoader, className);
+        return newInstance(clazz, classLoader, className);
     }
 
     public static <T> T newInstance(Class<T> clazz, ClassLoader classLoader, String className) throws Exception {

@@ -139,7 +139,7 @@ public abstract class AbstractMysqlJobQueue extends JdbcAbstractAccess implement
                 .setOnNotNull("trigger_time", JdbcTypeUtils.toTimestamp(request.getTriggerTime()))
                 .setOnNotNull("priority", request.getPriority())
                 .setOnNotNull("max_retry_times", request.getMaxRetryTimes())
-                .setOnNotNull("rely_on_prev_cycle", request.getRelyOnPrevCycle() == null ? true : request.getRelyOnPrevCycle())
+                .setOnNotNull("rely_on_prev_cycle", request.getRelyOnPrevCycle() == null || request.getRelyOnPrevCycle())
                 .setOnNotNull("submit_node_group", request.getSubmitNodeGroup())
                 .setOnNotNull("task_tracker_node_group", request.getTaskTrackerNodeGroup())
                 .setOnNotNull("repeat_count", request.getRepeatCount())
