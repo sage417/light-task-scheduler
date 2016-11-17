@@ -88,7 +88,7 @@ public class HttpCmdServer {
      */
     public static class Factory {
 
-        private static HttpCmdServer httpCmdServer;
+        private static volatile HttpCmdServer httpCmdServer;
 
         public static HttpCmdServer getHttpCmdServer(String bindAddr, int port) {
             if (httpCmdServer != null) {

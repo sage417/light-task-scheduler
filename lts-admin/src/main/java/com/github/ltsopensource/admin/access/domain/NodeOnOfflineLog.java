@@ -2,7 +2,7 @@ package com.github.ltsopensource.admin.access.domain;
 
 import com.github.ltsopensource.core.cluster.NodeType;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * 用来记录节点的上下线

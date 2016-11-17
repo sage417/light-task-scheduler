@@ -25,7 +25,7 @@ public class SqlTemplateFactory {
         if (sqlTemplate != null) {
             return sqlTemplate;
         }
-        synchronized (HOLDER) {
+        synchronized (SqlTemplateFactory.class) {
             sqlTemplate = HOLDER.get(dataSource);
             if (sqlTemplate != null) {
                 return sqlTemplate;

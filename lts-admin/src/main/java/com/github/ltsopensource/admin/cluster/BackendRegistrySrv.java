@@ -10,7 +10,7 @@ import com.github.ltsopensource.core.logger.LoggerFactory;
 import com.github.ltsopensource.core.registry.*;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -56,7 +56,7 @@ public class BackendRegistrySrv {
 
         for (Node node : nodes) {
             NodeOnOfflineLog log = new NodeOnOfflineLog();
-            log.setLogTime(new Date());
+            log.setLogTime(new Date(new java.util.Date().getTime()));
             log.setEvent(event == NotifyEvent.ADD ? "ONLINE" : "OFFLINE");
 
             log.setClusterName(node.getClusterName());

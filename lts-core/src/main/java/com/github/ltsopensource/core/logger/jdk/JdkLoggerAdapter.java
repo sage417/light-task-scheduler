@@ -15,6 +15,8 @@ public class JdkLoggerAdapter implements LoggerAdapter {
 	
 	private static final String GLOBAL_LOGGER_NAME = "global";
 
+	private java.util.logging.Logger globalLogger = java.util.logging.Logger.getLogger(GLOBAL_LOGGER_NAME);
+
     private File file;
 
 	public JdkLoggerAdapter() {
@@ -29,7 +31,7 @@ public class JdkLoggerAdapter implements LoggerAdapter {
 			System.err.println("Failed to load logging.properties in classpath for jdk logging config, cause: " + t.getMessage());
 		}
 		try {
-			Handler[] handlers = java.util.logging.Logger.getLogger(GLOBAL_LOGGER_NAME).getHandlers();
+			Handler[] handlers = globalLogger.getHandlers();
 			for (Handler handler : handlers) {
 				if (handler instanceof FileHandler) {
 					FileHandler fileHandler = (FileHandler)handler;
@@ -53,11 +55,11 @@ public class JdkLoggerAdapter implements LoggerAdapter {
 	}
 
 	public void setLevel(Level level) {
-		java.util.logging.Logger.getLogger(GLOBAL_LOGGER_NAME).setLevel(toJdkLevel(level));
+		globalLogger.setLevel(toJdkLevel(level));
 	}
 
 	public Level getLevel() {
-		return fromJdkLevel(java.util.logging.Logger.getLogger(GLOBAL_LOGGER_NAME).getLevel());
+		return fromJdkLevel(globalLogger.getLevel());
 	}
 
 	public File getFile() {

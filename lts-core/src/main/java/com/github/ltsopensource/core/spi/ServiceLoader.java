@@ -132,7 +132,6 @@ public class ServiceLoader {
             throw new IllegalStateException("Service loader could not load " + clazz.getName() + "'s ServiceProvider from '" + LTS_DIRECTORY + "' or '" + LTS_INTERNAL_DIRECTORY + "' It may be empty or does not exist.");
         }
         ServiceProvider serviceProvider = new ServiceProvider(clazz, dynamicConfigKey, defaultName, serviceDefinitions);
-        serviceMap.remove(clazz);   // 先移除
         serviceMap.put(clazz, serviceProvider);
         return serviceDefinitions.keySet();
     }

@@ -4,6 +4,7 @@ import com.github.ltsopensource.core.logger.Logger;
 import com.github.ltsopensource.core.logger.LoggerFactory;
 import com.github.ltsopensource.store.jdbc.SQLFormatter;
 import com.github.ltsopensource.store.jdbc.SqlTemplate;
+import com.github.ltsopensource.store.jdbc.builder.mysql.MySqlEscape;
 import com.github.ltsopensource.store.jdbc.exception.DupEntryException;
 import com.github.ltsopensource.store.jdbc.exception.JdbcException;
 import com.github.ltsopensource.store.jdbc.exception.TableNotExistException;
@@ -23,6 +24,7 @@ public class InsertSql {
     private StringBuilder sql = new StringBuilder();
     private List<Object[]> params = new LinkedList<Object[]>();
     private int columnsSize = 0;
+    private IEscape escape = MySqlEscape.Holder.instance;
 
     public InsertSql(SqlTemplate sqlTemplate) {
         this.sqlTemplate = sqlTemplate;
@@ -30,13 +32,13 @@ public class InsertSql {
 
     public InsertSql insert(String table) {
         this.sql.append("INSERT INTO ");
-        sql.append("`").append(table).append("`");
+        this.sql.append(this.escape.escape(table));
         return this;
     }
 
     public InsertSql insertIgnore(String table) {
         this.sql.append("INSERT IGNORE INTO ");
-        sql.append("`").append(table).append("`");
+        this.sql.append(this.escape.escape(table));
         return this;
     }
 
@@ -55,7 +57,7 @@ public class InsertSql {
         for (String column : columns) {
             sql.append(split);
             split = ", ";
-            sql.append("`").append(column.trim()).append("`");
+            this.sql.append(this.escape.escape(column.trim()));
         }
         sql.append(") VALUES ");
 
@@ -140,4 +142,8 @@ public class InsertSql {
         return sql.toString();
     }
 
+    public InsertSql setEscape(IEscape escape) {
+        this.escape = escape;
+        return this;
+    }
 }

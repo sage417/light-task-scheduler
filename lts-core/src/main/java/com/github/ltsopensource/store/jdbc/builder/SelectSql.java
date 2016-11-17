@@ -5,6 +5,8 @@ import com.github.ltsopensource.core.logger.Logger;
 import com.github.ltsopensource.core.logger.LoggerFactory;
 import com.github.ltsopensource.store.jdbc.SQLFormatter;
 import com.github.ltsopensource.store.jdbc.SqlTemplate;
+import com.github.ltsopensource.store.jdbc.builder.mysql.MySqlEscape;
+import com.github.ltsopensource.store.jdbc.builder.mysql.MySqlPage;
 import com.github.ltsopensource.store.jdbc.dbutils.ResultSetHandler;
 import com.github.ltsopensource.store.jdbc.exception.JdbcException;
 
@@ -23,6 +25,8 @@ public class SelectSql {
     private List<Object> params = new LinkedList<Object>();
     private int curOrderByColumnSize = 0;
     private static final String ORDER_BY = " ORDER BY ";
+    private IEscape escape = MySqlEscape.Holder.instance;
+    private IPage page = MySqlPage.Holder.instance;
 
     public SelectSql(SqlTemplate sqlTemplate) {
         this.sqlTemplate = sqlTemplate;
@@ -58,7 +62,7 @@ public class SelectSql {
     }
 
     public SelectSql table(String table) {
-        sql.append("`").append(table).append("`");
+        this.sql.append(this.escape.escape(table));
         return this;
     }
 
@@ -209,7 +213,7 @@ public class SelectSql {
     }
 
     public SelectSql limit(int start, int size) {
-        sql.append(" LIMIT ").append(start).append(",").append(size);
+        sql.append(this.page.page(start,size)[0]);
         return this;
     }
 
@@ -276,5 +280,15 @@ public class SelectSql {
 
     public String getSQL() {
         return sql.toString();
+    }
+
+    public SelectSql setEscape(IEscape escape) {
+        this.escape = escape;
+        return this;
+    }
+
+    public SelectSql setPage(IPage page) {
+        this.page = page;
+        return this;
     }
 }

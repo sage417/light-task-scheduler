@@ -82,7 +82,7 @@ public abstract class AbstractMongoJobQueue extends MongoRepository implements J
         addUpdateField(operations, "triggerTime", request.getTriggerTime() == null ? null : request.getTriggerTime().getTime());
         addUpdateField(operations, "priority", request.getPriority());
         addUpdateField(operations, "maxRetryTimes", request.getMaxRetryTimes());
-        addUpdateField(operations, "relyOnPrevCycle", request.getRelyOnPrevCycle() == null ? true : request.getRelyOnPrevCycle());
+        addUpdateField(operations, "relyOnPrevCycle", request.getRelyOnPrevCycle() == null || request.getRelyOnPrevCycle());
         addUpdateField(operations, "submitNodeGroup", request.getSubmitNodeGroup());
         addUpdateField(operations, "taskTrackerNodeGroup", request.getTaskTrackerNodeGroup());
         addUpdateField(operations, "repeatCount", request.getRepeatCount());

@@ -1,1 +1,2 @@
 mysql=com.github.ltsopensource.monitor.access.mysql.MysqlMonitorAccessFactory
+sqlserver=com.github.ltsopensource.monitor.access.sqlserver.SqlServerMonitorAccessFactory

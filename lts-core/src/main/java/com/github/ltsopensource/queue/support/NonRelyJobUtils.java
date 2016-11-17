@@ -70,7 +70,7 @@ public class NonRelyJobUtils {
             RepeatJobQueue repeatJobQueue,
             int scheduleIntervalMinute, final JobPo finalJobPo, Date lastGenerateTime) {
         JobPo jobPo = JobUtils.copy(finalJobPo);
-        long firstTriggerTime = Long.valueOf(jobPo.getInternalExtParam(Constants.FIRST_FIRE_TIME));
+        long firstTriggerTime = Long.parseLong(jobPo.getInternalExtParam(Constants.FIRST_FIRE_TIME));
 
         Long repeatInterval = jobPo.getRepeatInterval();
         Integer repeatCount = jobPo.getRepeatCount();

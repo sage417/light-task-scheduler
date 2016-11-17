@@ -289,7 +289,7 @@ public class JSONObject {
                 }
             }
 
-            METHOD_MAP.putIfAbsent(clazz, methodInfos);
+            METHOD_MAP.put(clazz, methodInfos);
         }
 
         return methodInfos;

@@ -5,6 +5,7 @@ import com.github.ltsopensource.core.logger.Logger;
 import com.github.ltsopensource.core.logger.LoggerFactory;
 import com.github.ltsopensource.store.jdbc.SQLFormatter;
 import com.github.ltsopensource.store.jdbc.SqlTemplate;
+import com.github.ltsopensource.store.jdbc.builder.mysql.MySqlEscape;
 import com.github.ltsopensource.store.jdbc.exception.JdbcException;
 
 import java.sql.SQLException;
@@ -21,6 +22,7 @@ public class DeleteSql {
     private SqlTemplate sqlTemplate;
     private StringBuilder sql = new StringBuilder();
     private List<Object> params = new LinkedList<Object>();
+    private IEscape escape = MySqlEscape.Holder.instance;
 
     public DeleteSql(SqlTemplate sqlTemplate) {
         this.sqlTemplate = sqlTemplate;
@@ -42,7 +44,7 @@ public class DeleteSql {
     }
 
     public DeleteSql table(String table) {
-        sql.append(" `").append(table.trim()).append("` ");
+        this.sql.append(this.escape.escape(table.trim()));
         return this;
     }
 
@@ -175,5 +177,10 @@ public class DeleteSql {
 
     public String getSQL() {
         return sql.toString();
+    }
+
+    public DeleteSql setEscape(IEscape escape) {
+        this.escape = escape;
+        return this;
     }
 }

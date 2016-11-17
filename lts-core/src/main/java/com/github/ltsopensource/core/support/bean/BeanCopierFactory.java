@@ -56,7 +56,7 @@ public final class BeanCopierFactory {
 
         Integer sequence = SEQ.incrementAndGet();
         if (propCvtMap != null) {
-            SEQ_PROP_CVT_MAP.putIfAbsent(sequence, propCvtMap);
+            SEQ_PROP_CVT_MAP.put(sequence, propCvtMap);
         }
 
         try {

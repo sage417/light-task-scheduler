@@ -22,7 +22,7 @@ public class RemotingHelper {
      */
     public static SocketAddress string2SocketAddress(final String addr) {
         String[] s = addr.split(":");
-        return new InetSocketAddress(s[0], Integer.valueOf(s[1]));
+        return new InetSocketAddress(s[0], Integer.parseInt(s[1]));
     }
 
     public static String parseChannelRemoteAddr(final Channel channel) {

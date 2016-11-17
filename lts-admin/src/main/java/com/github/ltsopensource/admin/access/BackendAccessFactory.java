@@ -8,7 +8,7 @@ import com.github.ltsopensource.core.spi.SPI;
 /**
  * @author Robert HG (254963746@qq.com) on 3/9/16.
  */
-@SPI(key = ExtConfig.ACCESS_DB, dftValue = "mysql")
+@SPI(key = ExtConfig.ACCESS_DB, dftValue = "sqlserver")
 public interface BackendAccessFactory {
 
     BackendJobTrackerMAccess getJobTrackerMAccess(Config config);

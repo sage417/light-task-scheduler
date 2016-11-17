@@ -108,6 +108,13 @@ abstract class FormatCache<F extends Format> {
 
         @Override
         public boolean equals(final Object obj) {
+            if (obj == null) {
+                return false;
+            }
+
+            if (!(obj instanceof MultipartKey)) {
+                return false;
+            }
             return Arrays.equals(keys, ((MultipartKey) obj).keys);
         }
 

@@ -5,6 +5,7 @@ import com.github.ltsopensource.core.logger.Logger;
 import com.github.ltsopensource.core.logger.LoggerFactory;
 import com.github.ltsopensource.store.jdbc.SQLFormatter;
 import com.github.ltsopensource.store.jdbc.SqlTemplate;
+import com.github.ltsopensource.store.jdbc.builder.mysql.MySqlEscape;
 import com.github.ltsopensource.store.jdbc.exception.JdbcException;
 
 import java.sql.SQLException;
@@ -21,6 +22,7 @@ public class UpdateSql {
     private SqlTemplate sqlTemplate;
     private StringBuilder sql = new StringBuilder();
     private List<Object> params = new LinkedList<Object>();
+    private IEscape escape = MySqlEscape.Holder.instance;
 
     public UpdateSql(SqlTemplate sqlTemplate) {
         this.sqlTemplate = sqlTemplate;
@@ -32,7 +34,7 @@ public class UpdateSql {
     }
 
     public UpdateSql table(String table) {
-        sql.append(" `").append(table).append("` ");
+        this.sql.append(this.escape.escape(table));
         return this;
     }
 
@@ -42,7 +44,7 @@ public class UpdateSql {
         } else {
             sql.append(" SET ");
         }
-        sql.append("`").append(column).append("`").append(" = ? ");
+        this.sql.append(this.escape.escape(column)).append(" = ? ");
         params.add(value);
         return this;
     }
@@ -185,5 +187,10 @@ public class UpdateSql {
 
     public String getSQL() {
         return sql.toString();
+    }
+
+    public UpdateSql setEscape(IEscape escape) {
+        this.escape = escape;
+        return this;
     }
 }

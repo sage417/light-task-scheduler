@@ -222,10 +222,8 @@ public class RedisRegistry extends FailbackRegistry {
             Notifier notifier = notifiers.get(listenNodePath);
             if (notifier == null) {
                 Notifier newNotifier = new Notifier(listenNodePath);
-                notifiers.putIfAbsent(listenNodePath, newNotifier);
-                notifier = notifiers.get(listenNodePath);
-                if (notifier == newNotifier) {
-                    notifier.start();
+                if (notifiers.putIfAbsent(listenNodePath, newNotifier) == null) {
+                    newNotifier.start();
                 }
             }
 
