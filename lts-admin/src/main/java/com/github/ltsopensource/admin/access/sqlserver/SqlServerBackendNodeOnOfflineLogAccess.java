@@ -78,13 +78,14 @@ public class SqlServerBackendNodeOnOfflineLogAccess extends SqlServerAbstractJdb
 
     @Override
     public Long count(NodeOnOfflineLogPaginationReq request) {
-        return new SelectSql(getSqlTemplate()).setEscape(SqlServerEscape.Holder.instance)
+        final Integer count = new SelectSql(getSqlTemplate()).setEscape(SqlServerEscape.Holder.instance)
                 .select()
                 .columns("count(1)")
                 .from()
                 .table(getTableName())
                 .whereSql(buildWhereSql(request))
                 .single();
+        return Long.valueOf(count);
     }
 
     @Override
