@@ -60,7 +60,7 @@ public class SqlServerBackendTaskTrackerMAccess extends SqlServerTaskTrackerMAcc
     public List<NodeInfo> getTaskTrackers() {
         return new SelectSql(getSqlTemplate()).setEscape(SqlServerEscape.Holder.instance)
                 .select()
-                .columns("DISTINCT identity", "node_group")
+                .columns("DISTINCT [identity]", "node_group")
                 .from()
                 .table(getTableName())
                 .list(RshHandler.NODE_INFO_LIST_RSH);
@@ -69,7 +69,7 @@ public class SqlServerBackendTaskTrackerMAccess extends SqlServerTaskTrackerMAcc
     public WhereSql buildWhereSql(MDataPaginationReq request) {
         return new WhereSql()
                 .andOnNotNull("id = ?", request.getId())
-                .andOnNotEmpty("identity = ?", request.getIdentity())
+                .andOnNotEmpty("[identity] = ?", request.getIdentity())
                 .andOnNotEmpty("node_group = ?", request.getNodeGroup())
                 .andBetween("timestamp", request.getStartTime(), request.getEndTime());
     }

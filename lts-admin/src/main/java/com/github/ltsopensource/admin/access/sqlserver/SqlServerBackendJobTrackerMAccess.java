@@ -72,7 +72,7 @@ public class SqlServerBackendJobTrackerMAccess extends SqlServerJobTrackerMAcces
     public List<String> getJobTrackers() {
         return new SelectSql(getSqlTemplate()).setEscape(SqlServerEscape.Holder.instance)
                 .select()
-                .columns("DISTINCT identity AS `identity` ")
+                .columns("DISTINCT [identity] AS [identity] ")
                 .from()
                 .table(getTableName())
                 .list(new ResultSetHandler<List<String>>() {

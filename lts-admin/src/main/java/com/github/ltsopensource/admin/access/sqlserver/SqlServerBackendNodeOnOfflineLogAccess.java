@@ -103,6 +103,6 @@ public class SqlServerBackendNodeOnOfflineLogAccess extends SqlServerAbstractJdb
                 .andOnNotEmpty("identity = ?", request.getIdentity())
                 .andOnNotEmpty("group = ?", request.getGroup())
                 .andOnNotEmpty("event = ?", request.getEvent())
-                .andBetween("log_time", request.getStartLogTime(), request.getEndLogTime());
+                .andBetween("log_time", request.getStartLogTime().getTime(), request.getEndLogTime().getTime());
     }
 }

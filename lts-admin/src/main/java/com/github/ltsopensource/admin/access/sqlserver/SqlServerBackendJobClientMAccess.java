@@ -60,7 +60,7 @@ public class SqlServerBackendJobClientMAccess extends SqlServerJobClientMAccess 
     public List<NodeInfo> getJobClients() {
         return new SelectSql(getSqlTemplate()).setEscape(SqlServerEscape.Holder.instance)
                 .select()
-                .columns("DISTINCT identity AS identity", "node_group")
+                .columns("DISTINCT [identity] AS [identity]", "node_group")
                 .from()
                 .table(getTableName())
                 .list(RshHandler.NODE_INFO_LIST_RSH);
