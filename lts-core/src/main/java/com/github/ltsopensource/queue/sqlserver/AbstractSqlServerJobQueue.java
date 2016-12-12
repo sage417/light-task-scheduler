@@ -83,14 +83,14 @@ public abstract class AbstractSqlServerJobQueue extends JdbcAbstractAccess imple
 
         WhereSql whereSql = buildWhereSql(request);
 
-        Long results = new SelectSql(getSqlTemplate()).setEscape(SqlServerEscape.Holder.instance)
+        Integer results = new SelectSql(getSqlTemplate()).setEscape(SqlServerEscape.Holder.instance)
                 .select()
                 .columns("count(1)")
                 .from()
                 .table(getTableName(request))
                 .whereSql(whereSql)
                 .single();
-        response.setResults(results.intValue());
+        response.setResults(results);
 
         if (results > 0) {
 

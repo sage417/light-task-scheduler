@@ -117,14 +117,14 @@ public class SqlServerJobLogger extends JdbcAbstractAccess implements JobLogger 
 
         PaginationRsp<JobLogPo> response = new PaginationRsp<JobLogPo>();
 
-        Long results = new SelectSql(getSqlTemplate()).setEscape(SqlServerEscape.Holder.instance)
+        Integer results = new SelectSql(getSqlTemplate()).setEscape(SqlServerEscape.Holder.instance)
                 .select()
                 .columns("count(1)")
                 .from()
                 .table(getTableName())
                 .whereSql(buildWhereSql(request))
                 .single();
-        response.setResults(results.intValue());
+        response.setResults(results);
         if (results == 0) {
             return response;
         }
