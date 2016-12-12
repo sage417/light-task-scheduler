@@ -27,7 +27,8 @@ CREATE TABLE [{tableName}] (
   [trigger_time] bigint ,
   [repeat_count] int DEFAULT '0' ,
   [repeated_count] int DEFAULT '0' ,
-  [repeat_interval] bigint DEFAULT '0'
+  [repeat_interval] bigint DEFAULT '0',
+  [last_generate_trigger_time] bigint DEFAULT '0'
 )
 
 END
